@@ -50,10 +50,20 @@ void enlarge(HashMap * map) {
 
 }
 
-
+/*1.- Implemente la función *createMap* en el archivo hashmap.c. 1.- Esta función crea una variable de tipo HashMap, 
+2.- inicializa el arreglo de buckets con casillas nulas, 3.- inicializa el resto de variables y retorna el mapa. 
+Inicialice el índice current a -1.
+*/
 HashMap * createMap(long capacity) {
-
-    return NULL;
+    HashMap * map = malloc(sizeof(HashMap));
+    map->capacity = capacity;
+    map->size = 0;
+    map->buckets = malloc(sizeof(Pair *) * capacity);
+    for (long i = 0; i < capacity; i++) {
+        map->buckets[i] = NULL;
+    }
+    map->current = -1;
+    return map;
 }
 
 void eraseMap(HashMap * map,  char * key) {    
