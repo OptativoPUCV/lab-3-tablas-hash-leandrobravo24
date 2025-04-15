@@ -42,3 +42,25 @@ hashmap.h:25:11: note: previous definition of 'createMap' was here
  HashMap * createMap(long capacity){
            ^~~~~~~~~
 20b3d3e
+Tue, Apr 15, 2025 12:57:59 PM: 
+Compilation failed
+In file included from hashmap.c:6:0,
+                 from test.c:4:
+hashmap.h: In function 'createMap':
+hashmap.h:26:36: error: invalid application of 'sizeof' to incomplete type 'HashMap {aka struct HashMap}'
+      HashMap * map = malloc(sizeof(HashMap)); //1
+                                    ^~~~~~~
+hashmap.h:30:9: error: dereferencing pointer to incomplete type 'HashMap {aka struct HashMap}'
+      map->buckets = malloc(sizeof(Pair*) * capacity);
+         ^~
+In file included from test.c:4:0:
+hashmap.c: At top level:
+hashmap.c:54:11: error: redefinition of 'createMap'
+ HashMap * createMap(long capacity) {
+           ^~~~~~~~~
+In file included from hashmap.c:6:0,
+                 from test.c:4:
+hashmap.h:25:11: note: previous definition of 'createMap' was here
+ HashMap * createMap(long capacity){
+           ^~~~~~~~~
+4b1a0cf
