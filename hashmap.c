@@ -57,11 +57,40 @@ void insertMap(HashMap * map, char * key, void * value) {
     map->current = pos; //actualiza el índice current
 
 }
+/*Implemente la función void enlarge(HashMap * map). 
+Esta función agranda la capacidad del arreglo buckets y reubica todos sus elementos. 
+Para hacerlo es recomendable mantener referenciado el arreglo *actual/antiguo* de la tabla con un puntero auxiliar. 
+Luego, los valores de la tabla se reinicializan con un nuevo arreglo con el **doble de capacidad**. 
+Por último los elementos del arreglo antiguo se insertan en el mapa *vacío* con el método *insertMap*.
 
-void enlarge(HashMap * map) {
+a - Cree una variable auxiliar de tipo Pair** para matener el arreglo map->buckets (*old_buckets*);
+
+b - Duplique el valor de la variable capacity.
+
+c - Asigne a map->buckets un nuevo arreglo con la nueva capacidad.
+
+d - Inicialice size a 0.
+
+e - Inserte los elementos del arreglo *old_buckets* en el mapa (use la función insertMap que ya implementó).
+*/
+
+void enlarge(HashMap * map){
     enlarge_called = 1; //no borrar (testing purposes)
+    Pair ** old_buckets = map->buckets; //a
 
+    /* se duplica la capacidad */
+    map -> capacity *= 2; //b
 
+    map->buckets = malloc(sizeof(Pair*) * map->capacity); //c
+    for (long i = 0; i < map->capacity; i++) {
+        map->buckets[i] = NULL;
+    }
+    map->size = 0; //d
+    for (long i = 0; i < map->capacity / 2; i++) {
+        if (old_buckets[i] != NULL && old_buckets[i]->key != NULL) {
+            insertMap(map, old_buckets[i]->key, old_buckets[i]->value); //e
+        }
+    }
 }
 
 /*Implemente la función *createMap* en el archivo hashmap.c. 
